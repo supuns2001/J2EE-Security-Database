@@ -22,6 +22,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -31,7 +32,15 @@ public class Login extends HttpServlet {
 
         AuthenticationStatus status = securityContext.authenticate(request, response, parameters);
 
-        System.out.println("status ;"+ status);
+        System.out.println("status :"+ status);
+
+        if (status == AuthenticationStatus.SUCCESS) {
+
+            response.sendRedirect((request.getContextPath()+"/index.jsp"));
+        }else{
+            response.sendRedirect((request.getContextPath()+"/login.jsp"));
+
+        }
 
     }
 }
